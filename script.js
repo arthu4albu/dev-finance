@@ -47,7 +47,7 @@ const transaction = {
     returnLastAction(retur) {
         this.return = retur
     },
-    // e aqui quando alguem clicar no botão "-Desfazer" ela add essa transaction apagada novamente
+    // e aqui quando alguem clicar no botão "-Desfazer" ela add essa transaction apagada novamente no
     addReturn() {
         const ar = document.querySelector(".button.return")
         if(ar == null) {
@@ -113,15 +113,19 @@ const DOM = {
         DOM.transactionsContainer.appendChild(tr)
     },
     innerHTMLTransaction(transaction, index) {
-        
         const cssClass = transaction.amount > 0 ? "income" : "expense" // ternário
         const amount = Utils.formatCurrency(transaction.amount)
         const html = `
-        <td class="description">${transaction.description}</td>
-        <td class="${cssClass}">${amount}</td>
-        <td class="date">${transaction.date}</td>
+        <td id="description${index}" class="description">${transaction.description}</td>
+        <td id="amount${index}" class="${cssClass}">${amount}</td>
+        <td id="date${index}" class="date">${transaction.date}</td>
         <td>
         <img onclick="transaction.remove(${index})" src="./assets (1)/assets/minus.svg" alt="Remover Transação">
+        </td>
+        <td>
+        <div class="edite" onclick="editeTransaction.edite(${index})">
+        =
+        </div>
         </td>
             `
         return html
@@ -227,6 +231,46 @@ const app = {
     reload() {
         DOM.clearTransactions()
         this.init()
+    }
+}
+editeTransaction = {
+    list: [],
+    addEdite(description, amount, date, index) {
+        this.list.forEach((item) => {
+            if(item == index) {
+                const des = document.getElementById(`des${index}`).value
+                const amou = document.getElementById(`amou${index}`).value
+                const dat = document.getElementById(`dat${index}`).value
+                this.list.splice(index, 1)
+                transaction.all[index].description = des
+                transaction.all[index].amount = Utils.formatAmount(amou)
+                transaction.all[index].date = Utils.formatDate(dat)
+                console.log(transaction.all)
+                description.innerHTML = transaction.all[index].description
+                amount.innerHTML = transaction.all[index].amount
+                date.innerHTML = transaction.all[index].date
+            }
+        })
+    },
+    edite(index) {
+        const description = document.querySelector(`#description${index}`)
+        const amount = document.querySelector(`#amount${index}`)
+        const date = document.querySelector(`#date${index}`)
+        const htmlToDescrition = `
+        <input id="des${index}"class="input-description" type="text" value="${transaction.all[index].description}">
+        `
+        const htmlToAmount = `
+        <input id="amou${index}"class="input-amount" type="number" step="0.01" value="${(transaction.all[index].amount) / 100}">
+        `
+        const htmlToDate = `
+        <input id="dat${index}"class="input-date" type="date""> 
+        `
+        // placeholder="${transaction.all[index].date}
+        description.innerHTML = htmlToDescrition
+        amount.innerHTML = htmlToAmount
+        date.innerHTML = htmlToDate
+        editeTransaction.addEdite(description, amount, date, index)
+        this.list.push(index)
     }
 }
 // área de inicialização

@@ -4,6 +4,7 @@
     --green: #49AA26;
     --light-green: #3dd705;
     --red: #e92929;
+    --gray: #969cb3;
 }
 /* Globla ====================================*/
 * {
@@ -136,7 +137,7 @@ color: white;
 #data-table {
     width: 100%;
     border-spacing: 0 0.5rem; /* serve para tirar as separações de borda como o margin e o padding fazem, mas nele é vertical depois pula pra horizontal*/
-    color: #969cb3;
+    color: var(--gray);
 }
 table thead tr th:first-child,
 table tbody tr td:first-child {/* para buscar a primeira criança*/
@@ -150,7 +151,7 @@ table thead th {
     background: white;
     font-weight: normal;
     padding: 1rem 2rem;
-    color: #969cb3;
+    color: var(--gray);
     text-align: left;
     border-radius: qq 0 qqqq 0;
 }
@@ -172,6 +173,27 @@ td.description {
 }
 .expense {
     color: #e92929;
+}
+/* edite ====================================*/
+.edite {
+    width: 2rem;
+    height: 2rem;
+    border: 2px solid var(--gray);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.input-description {
+    border: 2px solid var(--gray);
+    width: 8rem;
+}
+.input-amount {
+    border: 2px solid var(--green);
+    width: 8rem;
+}
+.input-date{
+    border: 2px solid var(--gray);
+    width: 8rem;
 }
 /* modal ====================================*/
 .modal-overlay {
