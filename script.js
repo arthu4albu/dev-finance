@@ -16,22 +16,7 @@ const modal = {
         }
     } 
 }
-// Desafio: pesquisar a função toogle()
-// {
-//     description: "luz",
-//     amount: -50000,
-//     date: "23/01/2021"
-// },
-// {
-//     description: "website",
-//     amount: 500000,
-//     date: "23/01/2021"
-// },
-// {
-//     description: "internet",
-//     amount: -20000,
-//     date: "23/01/2021"
-// }
+
 const storage = {
     get() {
         return JSON.parse(localStorage.getItem("dev.finances:transactions")) || []
@@ -47,7 +32,7 @@ const transaction = {
     returnLastAction(retur) {
         this.return = retur
     },
-    // e aqui quando alguem clicar no botão "-Desfazer" ela add essa transaction apagada novamente no
+    // e aqui quando alguem clicar no botão "-Desfazer" ela add essa transaction apagada novamente
     addReturn() {
         const ar = document.querySelector(".button.return")
         if(ar == null) {
@@ -108,7 +93,7 @@ const DOM = {
     transactionsContainer: document.querySelector("#data-table tbody"),
     addTransaction(transaction, index) {
         const tr = document.createElement("tr")
-        tr.innerHTML = DOM.innerHTMLTransaction(transaction, index) // o innerHTML ele serve pra me mostrar qual o HTML q tem dentro dele ou receber um HTML
+        tr.innerHTML = DOM.innerHTMLTransaction(transaction, index) // o innerHTML serve pra me mostrar qual o HTML que tem dentro dele ou receber um HTML
         tr.dataset.index = index
         DOM.transactionsContainer.appendChild(tr)
     },
@@ -173,10 +158,9 @@ const form = {
         }
     },
     validateFields() {
-        // algo
         const { description, amount, date } = this.getValues()
         if(description.trim() === "" || amount.trim() === "" || date.trim() === "") {
-            throw new Error("por favor, preencha todos os campos") // o throw é meio q cuspir, vomitar, jogar pra fora e o Error é um construtor e quando vc usa o new vc está criando uma copia do Error pra vc auterar os valores
+            throw new Error("por favor, preencha todos os campos") // o throw é meio que cuspir, vomitar, jogar pra fora e o Error é um construtor e quando você usa o new estará criando uma copia do Error para auterar os valores
         } // o trim faz uma limpeza de espaços vazios na sua string
     },
     formatValues() {
@@ -184,7 +168,7 @@ const form = {
         amount = Utils.formatAmount(amount)
         date = Utils.formatDate(date)
         return {
-            description, // quando o nome de uma "caracteristica" de um objeto é o mesmo nome doq ele vai receber podemos deixar dessa forma encurtada
+            description, // quando o nome de uma variável tem o mesmo nome que vai ser recebido a propriedade de um objeto podemos deixar dessa forma encurtada
             amount,
             date
         }
@@ -199,7 +183,7 @@ const form = {
     },
     submit(event) {
         event.preventDefault()
-        try { // try significa tentar, ou seja vc vai realizar todas essas funções, se ouver algum error vai retornar o catch 
+        try { // try significa tentar, ou seja você vai realizar todas essas funções, se ouver algum error vai retornar o catch 
             // validar se os campos foram preenchidos
             this.validateFields()
             // formatar os dados
@@ -265,7 +249,7 @@ editeTransaction = {
         const htmlToDate = `
         <input id="dat${index}"class="input-date" type="date""> 
         `
-        // placeholder="${transaction.all[index].date}
+        
         description.innerHTML = htmlToDescrition
         amount.innerHTML = htmlToAmount
         date.innerHTML = htmlToDate
